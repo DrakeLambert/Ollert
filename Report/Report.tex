@@ -112,7 +112,7 @@
     }
 
 
-
+% End borrowed code
 
 \begin{document}
 \begin{titlepage}
@@ -158,21 +158,22 @@
 \end{itemize}
 
 
-\subsection{Assumptions about the domain}
+\subsection{Assumptions About the Domain}
   \begin{itemize}
     \item Users should only have access to the boards they are members of
   \end{itemize}
 
-\subsection{database design process}
+\subsection{Database Design Process}
 
-\subsection{our tables}
+\subsection{Ollert's tables}
 \subsubsection{Functional Dependencies}
+
 \subsubsection{Primary and Foreign Keys}
 
 \section{Database Implementation}
 
 \subsection{Create Table Statements}
-    \begin{lstlisting}[language=SQL, caption=ApplicationUser Table]
+    \begin{lstlisting}[language=SQL, caption=ApplicationUser Table Creation Statement]
       create table ApplicationUser(
         Id char(32),
         Username varchar(100) not null,
@@ -181,7 +182,7 @@
       );
     \end{lstlisting}
 
-    \begin{lstlisting}[language=SQL, caption=Board Table]
+    \begin{lstlisting}[language=SQL, caption=Board Table Creation Statement]
       create table Board(
         Id char(32),
         Title varchar(100) not null,
@@ -191,7 +192,7 @@
       );
     \end{lstlisting}
 
-    \begin{lstlisting}[language=SQL, caption=BoardMember Table]
+    \begin{lstlisting}[language=SQL, caption=BoardMember Table Creation Statement]
       create table BoardMember(
         BoardId char(32),
         MemberId char(32),
@@ -199,7 +200,7 @@
         foreign key ( MemberId ) references ApplicationUser( Id )
       );
     \end{lstlisting}
-    \begin{lstlisting}[language=SQL, caption=List Table]
+    \begin{lstlisting}[language=SQL, caption=List Table Creation Statement]
       create table List(
         Id char(32),
         Title varchar(100) not null,
@@ -209,7 +210,7 @@
         foreign key ( BoardId ) references Board( Id )
       );
     \end{lstlisting}
-    \begin{lstlisting}[language=SQL, caption=Task Table]
+    \begin{lstlisting}[language=SQL, caption=Task Table Creation Statement]
       create table Task(
         Id char(32),
         Title varchar(100) not null,
@@ -220,7 +221,7 @@
         foreign key ( ListId ) references List( Id )
       )
     \end{lstlisting}
-    \begin{lstlisting}[language=SQL, caption=TaskAssignee Table]
+    \begin{lstlisting}[language=SQL, caption=TaskAssignee Table Creation Statement]
       create table TaskAssignee(
         TaskId char(32),
         AssigneeId char(32),
@@ -228,7 +229,7 @@
         foreign key ( AssigneeId ) references ApplicationUser( Id )
       )
     \end{lstlisting}
-    \begin{lstlisting}[language=SQL, caption=Comment Table]
+    \begin{lstlisting}[language=SQL, caption=Comment Table Creation Statement]
       create table Comment(
         Id char(32),
         TimeCreated datetimeoffset not null,
@@ -242,7 +243,42 @@
     \end{lstlisting}
 
 \subsection{Insert Statements}
+\begin{lstlisting}[language=SQL, caption=ApplicationUser Insert Statements]
+  insert into ApplicationUser values ("19843875-6077-49", "Walter	Rogers", "168E5F6A717237FB2232A8AFE2DAAE3F8D582C5D4CC0EAA268F05F420F1EC421");
 
+  insert into ApplicationUser values ("372a9ad5-4952-44", "Jean Bryant", "DAB12D7BB613EAC0304D9917738729FB37B60EBB1FB59FC9493ED64733CCE3BA");
+\end{lstlisting}
+\begin{lstlisting}[language=SQL, caption=Board Insert Statements]
+  insert into Board values ("bbdd7100-cd10-41", "Sports Forum Mobile App", "19843875-6077-49");
+
+  insert into Board values ("62376bd0-6ecc-4f", "Untitled Platformer Game", "372a9ad5-4952-44");
+\end{lstlisting}
+\begin{lstlisting}[language=SQL, caption=BoardMember Insert Statements]
+  insert into BoardMember values ("fdd8f8a8-0d53-4f", "19843875-6077-49");
+
+  insert into BoardMember values ("bbdd7100-cd10-41", "372a9ad5-4952-44");
+\end{lstlisting}
+\begin{lstlisting}[language=SQL, caption=List Insert Statements]
+  insert into List values ("64251244-40f5-45","Admin Website", 2, "bbdd7100-cd10-41");
+
+  insert into List values ("a583557a-3d83-4a","Art Design", 0, "62376bd0-6ecc-4f");
+\end{lstlisting}
+\begin{lstlisting}[language=SQL, caption=Task Insert Statements]
+  insert into Task values ("e01479d6-6019-4a", "Database Design", "Design a robust database schema for storing all the data in our app.", "20180120 09:00:00 +10:00", "0e72d679-da23-41");
+
+  insert into Task values ("d46993c0-ce64-46", "Story Design", "Write a fun story for the game.", "20180620 09:00:00 +10:00", "a583557a-3d83-4a");
+
+\end{lstlisting}
+\begin{lstlisting}[language=SQL, caption=TaskAssignee Insert Statements]
+  insert into TaskAssignee values ("ac1a2b65-d1fc-47","88b03172-135a-4b");
+
+  insert into TaskAssignee values ("a9f5ae59-6193-40","d263667b-ea46-4b");
+\end{lstlisting}
+\begin{lstlisting}[language=SQL, caption=Comment Insert Statements]
+  insert into Comment values("c088cfa0-15e2-4f", "20180110 08:54:00 +10:00", "I'm probably going to need some help with this.", "e01479d6-6019-4a", "372a9ad5-4952-44");
+
+  insert into Comment values("59646b1b-a084-49", "20180120 08:54:00 +10:00", "So I'm thinking our game has a mario-like character - but green.", "a9f5ae59-6193-40", "d263667b-ea46-4b");
+\end{lstlisting}
 \subsection{Data manipulation statements}
 
 \subsubsection{Select statements}
@@ -250,5 +286,8 @@
 \subsubsection{Other Statements}
 
 \subsubsection{Update statements}
+
+\section{Index}
+\lstlistoflistings
 
 \end{document}

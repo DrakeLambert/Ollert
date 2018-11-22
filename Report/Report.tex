@@ -168,7 +168,69 @@
 \subsection{Ollert's tables}
 \subsubsection{Functional Dependencies}
 
-\subsubsection{Primary and Foreign Keys}
+\subsubsection{Primary Keys}
+\begin{itemize}
+  \item ApplicationUser
+    \begin{itemize}
+      \item ApplicationUser.Id
+    \end{itemize}
+  \item Board
+    \begin{itemize}
+      \item Board.Id
+    \end{itemize}
+  \item BoardMember
+    \begin{itemize}
+      \item none
+    \end{itemize}
+  \item List
+    \begin{itemize}
+      \item List.Id
+    \end{itemize}
+  \item Task
+    \begin{itemize}
+      \item Task.Id
+    \end{itemize}
+  \item TaskAssignee
+    \begin{itemize}
+      \item none
+    \end{itemize}
+  \item Comment
+    \begin{itemize}
+      \item Comment.Id
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Foreign Keys}
+\begin{itemize}
+  \item Board
+  \begin{itemize}
+    \item ApplicationUser.Id
+  \end{itemize}
+  \item BoardMember
+    \begin{itemize}
+      \item Board.Id
+      \item ApplicationUser.Id
+    \end{itemize}
+  \item List
+    \begin{itemize}
+      \item Board.Id
+    \end{itemize}
+  \item Task
+    \begin{itemize}
+      \item List.Id
+    \end{itemize}
+  \item TaskAssignee
+    \begin{itemize}
+      \item Task.Id
+      \item ApplicationUser.Id
+    \end{itemize}
+  \item Comment
+    \begin{itemize}
+      \item Task.Id
+      \item ApplicationUser.Id
+    \end{itemize}
+\end{itemize}
+\pagebreak
 
 \section{Database Implementation}
 

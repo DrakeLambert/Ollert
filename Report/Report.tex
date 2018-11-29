@@ -341,9 +341,19 @@
 
   insert into Comment values("59646b1b-a084-49", "20180120 08:54:00 +10:00", "So I'm thinking our game has a mario-like character - but green.", "a9f5ae59-6193-40", "d263667b-ea46-4b");
 \end{lstlisting}
+
+\pagebreak
+
 \subsection{Data manipulation statements}
 
 \subsubsection{Select statements}
+
+\begin{lstlisting}[language=SQL, caption=Select Most Active Task by Number of Comments]
+SELECT TOP 1 Count(*) as NumComments, Username FROM ApplicationUser, Comment WHERE ApplicationUser.Id=Comment.OwnerId GROUP BY Username ORDER BY NumComments desc;
+\end{lstlisting}
+\begin{lstlisting}[language=SQL, caption=Select Most Active User (Comments)]
+SELECT TOP 1 Count(*) as NumComments,Title FROM Task, Comment WHERE Task.Id=Comment.TaskId GROUP BY Title ORDER BY NumComments desc;
+\end{lstlisting}
 
 \subsubsection{Other Statements}
 

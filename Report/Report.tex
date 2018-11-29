@@ -139,7 +139,7 @@
 
 \section{Database Design}
 \subsection{Introduction}
-
+Ollert is the backend database for a Kanban Board application (similar to https://Trello.com). It supports multiple users collaborating on one or many boards, through comments and task generation. 
 \pagebreak
 \subsection{ER Diagram}
 \includegraphics{Images/ER}
@@ -306,9 +306,11 @@
 
 \subsection{Insert Statements}
 \begin{lstlisting}[language=SQL, caption=ApplicationUser Insert Statements]
-  insert into ApplicationUser values ("19843875-6077-49", "Walter	Rogers", "168E5F6A717237FB2232A8AFE2DAAE3F8D582C5D4CC0EAA268F05F420F1EC421");
+  insert into ApplicationUser values ("19843875-6077-49", "Walter	Rogers",
+   "168E5F6A717237FB2232A8AFE2DAAE3F8D582C5D4CC0EAA268F05F420F1EC421");
 
-  insert into ApplicationUser values ("372a9ad5-4952-44", "Jean Bryant", "DAB12D7BB613EAC0304D9917738729FB37B60EBB1FB59FC9493ED64733CCE3BA");
+  insert into ApplicationUser values ("372a9ad5-4952-44", "Jean Bryant",
+   "DAB12D7BB613EAC0304D9917738729FB37B60EBB1FB59FC9493ED64733CCE3BA");
 \end{lstlisting}
 \begin{lstlisting}[language=SQL, caption=Board Insert Statements]
   insert into Board values ("bbdd7100-cd10-41", "Sports Forum Mobile App", "19843875-6077-49");

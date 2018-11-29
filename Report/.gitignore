@@ -1,4 +1,5 @@
 Report.*
 !*.pdf
 !*.tex
+**pdflatex*
 __latexindent_temp.tex

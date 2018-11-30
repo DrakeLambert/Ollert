@@ -2,6 +2,7 @@
     \usepackage{amsmath}
     \usepackage{tikz}
     \usepackage{epigraph}
+    \usepackage{float}
     \usepackage{lipsum}
     \usepackage{glossaries}
     \usepackage{graphicx}
@@ -352,11 +353,100 @@ Ollert is the backend database for a Kanban Board application (similar to https:
 
 \subsubsection{Select statements}
 
-\begin{lstlisting}[language=SQL, caption=Select Most Active Task by Number of Comments]
-SELECT TOP 1 Count(*) as NumComments, Username FROM ApplicationUser, Comment WHERE ApplicationUser.Id=Comment.OwnerId GROUP BY Username ORDER BY NumComments desc;
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{Images/MostActiveTask-Comments}
+\end{figure}
+\begin{lstlisting}[language=SQL, caption=Select Most Active Task (Comments)]
+SELECT TOP 1 Title, Count(*) as NumComments FROM Task, Comment WHERE Task.Id=Comment.TaskId GROUP BY Title ORDER BY NumComments DESC;
 \end{lstlisting}
+\hrule
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{Images/MostActiveUser-Comments}
+\end{figure}
 \begin{lstlisting}[language=SQL, caption=Select Most Active User (Comments)]
-SELECT TOP 1 Count(*) as NumComments,Title FROM Task, Comment WHERE Task.Id=Comment.TaskId GROUP BY Title ORDER BY NumComments desc;
+SELECT TOP 1 Username, Count(*) as NumComments FROM ApplicationUser, Comment WHERE ApplicationUser.Id=Comment.OwnerId GROUP BY Username ORDER BY NumComments desc;
+\end{lstlisting}
+\hrule
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{Images/LeastActiveUser-Comments}
+\end{figure}
+\begin{lstlisting}[language=SQL, caption=Select Least Active User (Comments)]
+SELECT TOP 1 Username, COUNT(*) as NumComments FROM Comment, ApplicationUser WHERE ApplicationUser.Id = Comment.OwnerId GROUP BY Username ORDER BY NumComments ASC;
+\end{lstlisting}
+\hrule
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{Images/UserPairs-Board}
+\end{figure}
+\begin{lstlisting}[language=SQL, caption=Find Users Who Share At Least One Board]
+SELECT DISTINCT A.MemberId, B.MemberId FROM BoardMember AS A INNER JOIN BoardMember as B ON A.BoardId = B.BoardId AND B.MemberId > A.MemberId;
+\end{lstlisting}
+\hrule
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{Images/BoardsForUser}
+\end{figure}
+\begin{lstlisting}[language=SQL, caption=Select Board Membership for User "Amy Wood"]
+SELECT Username, Count(*) as NumBoards FROM BoardMember INNER JOIN ApplicationUser on BoardMember.MemberId = ApplicationUser.Id WHERE Username = 'Amy Wood' GROUP BY Username;
+\end{lstlisting}
+\hrule
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{Images/CommentsForUser}
+\end{figure}
+\begin{lstlisting}[language=SQL, caption=Select 10 Most Recent Comments for User "Phillip Ramirez"]
+SELECT TOP 10 MessageText, TimeCreated FROM Comment INNER JOIN ApplicationUser on ApplicationUser.Id = Comment.OwnerId WHERE Username = 'Phillip Ramirez' ORDER BY TimeCreated DESC;
+\end{lstlisting}
+\hrule
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{Images/CommentsAllUsers}
+\end{figure}
+\begin{lstlisting}[language=SQL, caption=Select 10 Most Recent Comments]
+SELECT TOP 10 MessageText, TimeCreated, Username as Creator FROM Comment, ApplicationUser WHERE ApplicationUser.Id = Comment.OwnerId ORDER BY TimeCreated DESC;
+\end{lstlisting}
+\hrule
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{Images/MostActiveBoard-Tasks}
+\end{figure}
+\begin{lstlisting}[language=SQL, caption=Select Most Active Board (Tasks)]
+SELECT TOP 1 Board.Title as Board, COUNT(*) as NumTasks FROM Task INNER JOIN List ON Task.ListId = List.Id INNER JOIN Board on List.BoardId = Board.Id GROUP BY Board.Title ORDER BY NumTasks DESC;
+\end{lstlisting}
+\hrule
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{Images/MostActiveBoard-Comments}
+\end{figure}
+\begin{lstlisting}[language=SQL, caption=Select Most Active Board (Comments)]
+SELECT TOP 1 Board.Title as Board, COUNT(*) as NumComments FROM Comment INNER JOIN Task on Comment.TaskId = Task.Id INNER JOIN List ON Task.ListId = List.Id INNER JOIN Board on List.BoardId = Board.Id GROUP BY Board.Title ORDER BY NumComments DESC;
+\end{lstlisting}
+\hrule
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{Images/MostActiveUser-Tasks}
+\end{figure}
+\begin{lstlisting}[language=SQL, caption=Select Most Active User (Tasks)]
+SELECT TOP 1 Username, COUNT(*) AS AssignedTasks FROM ApplicationUser INNER JOIN TaskAssignee on ApplicationUser.Id = TaskAssignee.AssigneeId GROUP BY Username ORDER BY AssignedTasks DESC;
+\end{lstlisting}
+\hrule
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{Images/MostActiveUser-Boards}
+\end{figure}
+\begin{lstlisting}[language=SQL, caption=Select Most Active User (Boards)]
+SELECT TOP 1 Username, COUNT(*) AS BoardsCreated FROM ApplicationUser INNER JOIN Board on ApplicationUser.Id = Board.OwnerId GROUP BY Username ORDER BY BoardsCreated DESC;
+\end{lstlisting}
+\hrule
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{Images/OverdueTasks}
+\end{figure}
+\begin{lstlisting}[language=SQL, caption=Select All Overdue Tasks]
+SELECT Id FROM Task WHERE DueDate < SYSDATETIMEOFFSET();
 \end{lstlisting}
 
 \subsubsection{Other Statements}

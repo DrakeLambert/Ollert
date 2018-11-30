@@ -485,10 +485,29 @@ SELECT TOP 1 Username, COUNT(*) AS BoardsCreated FROM ApplicationUser INNER JOIN
 SELECT Id FROM Task WHERE DueDate < SYSDATETIMEOFFSET();
 \end{lstlisting}
 
+\subsubsection{Update statements}
+
+\begin{lstlisting}[language=SQL, caption=Edit Comment Text]
+UPDATE Comment SET MessageText = 'Thanks mate.', TimeCreated = SYSDATETIMEOFFSET() WHERE Id = '49570bdb-0702-45';
+\end{lstlisting}
+\begin{lstlisting}[language=SQL, caption=Change Board Owner]
+UPDATE Board SET OwnerId = '5d842729-e31d-40' WHERE Title = 'AI Stock Trader';
+\end{lstlisting}
+\begin{lstlisting}[language=SQL, caption=Change Task Description]
+UPDATE Task SET Descriptor = 'Develop a robust and effective testing suite.' WHERE Title = 'Testing';
+\end{lstlisting}
+\begin{lstlisting}[language=SQL, caption=Rename a List]
+UPDATE List SET Title = 'Art & Design' WHERE Title = 'Art Design';
+\end{lstlisting}
 
 \subsubsection{Other Statements}
 
-\subsubsection{Update statements}
+\begin{lstlisting}[language=SQL, caption=Delete All Comments Prior to A Given Date]
+DELETE FROM Comment WHERE TimeCreated < '2018-01-12';
+\end{lstlisting}
+\begin{lstlisting}[language=SQL, caption=Delete Inactive Users]
+SELECT Username FROM ApplicationUser WHERE Id NOT IN (SELECT OwnerId FROM Board UNION SELECT MemberId FROM BoardMember UNION SELECT OwnerId FROM  Comment UNION  SELECT AssigneeId FROM TaskAssignee);
+\end{lstlisting}
 
 \section{Index}
 \lstlistoflistings

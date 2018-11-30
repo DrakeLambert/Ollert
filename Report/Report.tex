@@ -506,7 +506,7 @@ UPDATE List SET Title = 'Art & Design' WHERE Title = 'Art Design';
 DELETE FROM Comment WHERE TimeCreated < '2018-01-12';
 \end{lstlisting}
 \begin{lstlisting}[language=SQL, caption=Delete Inactive Users]
-SELECT Username FROM ApplicationUser WHERE Id NOT IN (SELECT OwnerId FROM Board UNION SELECT MemberId FROM BoardMember UNION SELECT OwnerId FROM  Comment UNION  SELECT AssigneeId FROM TaskAssignee);
+DELETE FROM ApplicationUser WHERE Id NOT IN (SELECT OwnerId FROM Board UNION SELECT MemberId FROM BoardMember UNION SELECT OwnerId FROM  Comment UNION  SELECT AssigneeId FROM TaskAssignee);
 \end{lstlisting}
 
 \section{Index}

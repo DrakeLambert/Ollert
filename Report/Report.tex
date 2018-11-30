@@ -174,10 +174,11 @@ Ollert is the backend database for a Kanban Board application (similar to https:
 
 \subsection{Ollert's tables}
 ApplicationUser Table
-\csvautolongtable{describeApplicationUser.csv}
+\csvautolongtable[respect underscore=true]{describeApplicationUser.csv}
 \hrule
 Board Table
 \csvautolongtable{describeBoard.csv}
+\pagebreak
 \hrule
 BoardMember Table
 \csvautolongtable{describeBoardMember.csv}
@@ -194,8 +195,16 @@ TaskAssignee Table
 Comment Table
 \csvautolongtable{describeComment.csv}
 \hrule
+\pagebreak
 \subsubsection{Functional Dependencies}
-
+  \begin{itemize}
+    \item ApplicationUser.Id $\rightarrow$ ApplicationUser.Username
+    \item Board.Id $\rightarrow$ Board.Title
+    \item Task.Id $\rightarrow$ Task.Title
+    \item List.Id $\rightarrow$ List.Title
+    \item List.Id $\rightarrow$ List.BoardPosition
+    \item Comment.ID $\rightarrow$ Comment.TimeCreated
+  \end{itemize}
 \subsubsection{Primary Keys}
 \begin{itemize}
   \item ApplicationUser
@@ -291,6 +300,7 @@ Comment Table
         foreign key ( MemberId ) references ApplicationUser( Id )
       );
     \end{lstlisting}
+
     \begin{lstlisting}[language=SQL, caption=List Table Creation Statement]
       create table List(
         Id char(32),
@@ -301,6 +311,7 @@ Comment Table
         foreign key ( BoardId ) references Board( Id )
       );
     \end{lstlisting}
+    \pagebreak
     \begin{lstlisting}[language=SQL, caption=Task Table Creation Statement]
       create table Task(
         Id char(32),
@@ -332,6 +343,7 @@ Comment Table
         foreign key ( OwnerId ) references ApplicationUser( Id )
       )
     \end{lstlisting}
+    \pagebreak
 %==============================================================================
 \subsection{Insert Statements}
 \begin{lstlisting}[language=SQL, caption=ApplicationUser Insert Statements]

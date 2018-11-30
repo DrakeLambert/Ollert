@@ -1,0 +1,11 @@
+Id,Title,BoardPosition,BoardId
+0e72d679-da23-41,Database,0,bbdd7100-cd10-41
+3073d9ee-fbef-48,ML Model Creation,1,fdd8f8a8-0d53-4f
+42f550ff-724b-49,Deployment,3,fdd8f8a8-0d53-4f
+64251244-40f5-45,Admin Website,2,bbdd7100-cd10-41
+89fd7d40-e284-44,Game Development,2,62376bd0-6ecc-4f
+8dda7e83-294f-48,Logviewer,2,fdd8f8a8-0d53-4f
+a583557a-3d83-4a,Art Design,0,62376bd0-6ecc-4f
+b9ec9dee-e742-4d,App Development,1,bbdd7100-cd10-41
+d0ce1983-dcdf-49,Distribution,1,62376bd0-6ecc-4f
+ed04c7f0-20e3-48,Data Gathering,0,fdd8f8a8-0d53-4f

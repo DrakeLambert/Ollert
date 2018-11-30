@@ -5,11 +5,12 @@
     \usepackage{lipsum}
     \usepackage{glossaries}
     \usepackage{graphicx}
-    \graphicspath{{Images/}}
     \usepackage{imakeidx}
     \usepackage{hyperref}
     \usepackage{listings}
     \usepackage{color}
+    \usepackage{csvsimple}
+    \usepackage{lscape}
 
     \definecolor{codegreen}{rgb}{0,0.6,0}
     \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -36,7 +37,7 @@
     }
 
     \lstset{style=mystyle}
-    \graphicspath{Images/}
+    \graphicspath{{Images/}}
     \setcounter{tocdepth}{2}
     \makeglossaries
     \makeindex[columns=2, title=Alphabetical Index]
@@ -136,7 +137,7 @@
 \end{titlepage}
 \tableofcontents
 \pagebreak
-
+%Begin our document--------------------------------
 \section{Database Design}
 \subsection{Introduction}
 Ollert is the backend database for a Kanban Board application (similar to https://Trello.com). It supports multiple users collaborating on one or many boards, through comments and task generation.
@@ -234,6 +235,7 @@ Ollert is the backend database for a Kanban Board application (similar to https:
 \end{itemize}
 \pagebreak
 
+%-----------------------Part 2 ----------------------------------------
 \section{Database Implementation}
 
 \subsection{Create Table Statements}
@@ -305,7 +307,7 @@ Ollert is the backend database for a Kanban Board application (similar to https:
         foreign key ( OwnerId ) references ApplicationUser( Id )
       )
     \end{lstlisting}
-
+%==============================================================================
 \subsection{Insert Statements}
 \begin{lstlisting}[language=SQL, caption=ApplicationUser Insert Statements]
   insert into ApplicationUser values ("19843875-6077-49", "Walter	Rogers",
@@ -345,19 +347,57 @@ Ollert is the backend database for a Kanban Board application (similar to https:
 
   insert into Comment values("59646b1b-a084-49", "20180120 08:54:00 +10:00", "So I'm thinking our game has a mario-like character - but green.", "a9f5ae59-6193-40", "d263667b-ea46-4b");
 \end{lstlisting}
-
 \pagebreak
 
+%==============================================================================
+
+\subsection{Data Tables}
+Due to the length of some of our fields the results may be split into multiple tables to fit on the page. Tables in the same horizontal rule pair are part of the same table.\\
+
+\hrule
+ApplicationUser Table
+\csvautolongtable{application_user.csv}
+\csvautolongtable{application_user1.csv}
+\hrule
+Board Table
+\csvautolongtable{Board.csv}
+\pagebreak
+\hrule
+Board Member Table
+\csvautolongtable{board_member.csv}
+\hrule
+List Table
+\csvautolongtable{list.csv}
+\hrule
+Task Table
+\csvautolongtable{Task2.csv}
+\csvautolongtable{Task.csv}
+\csvautolongtable{Task1.csv}
+\hrule
+TaskAssignee Table
+\csvautolongtable{task_assignee.csv}
+\hrule
+Comment Table
+\csvautolongtable{comment1.csv}
+\csvautolongtable{comment.csv}
+\csvautolongtable{comment2.csv}
+\hrule
+\pagebreak
+%=======================================================================
 \subsection{Data manipulation statements}
 
 \subsubsection{Select statements}
 
-\begin{lstlisting}[language=SQL, caption=Select Most Active Task by Number of Comments]
+\begin{lstlisting}[language=SQL, caption=Select Most Active User by Comments posted on Tasks]
+  -- Get the most active users username, WHERE activity is defined by number of comments posted on tasks across the site.
 SELECT TOP 1 Count(*) as NumComments, Username FROM ApplicationUser, Comment WHERE ApplicationUser.Id=Comment.OwnerId GROUP BY Username ORDER BY NumComments desc;
 \end{lstlisting}
-\begin{lstlisting}[language=SQL, caption=Select Most Active User (Comments)]
+\csvautolongtable{MAU.csv}
+\begin{lstlisting}[language=SQL, caption=Select Most Active Task by Number of Comments]
+  --Get the most active Task, WHERE activity is defined by the number of comments posted on the task.
 SELECT TOP 1 Count(*) as NumComments,Title FROM Task, Comment WHERE Task.Id=Comment.TaskId GROUP BY Title ORDER BY NumComments desc;
 \end{lstlisting}
+\csvautolongtable{MAT.csv}
 
 \subsubsection{Other Statements}
 

@@ -1,0 +1,5 @@
+COLUMN_NAME,TYPE_NAME,LENGTH,IS_NULLABLE
+Id,char,16,NO
+Title,varchar,100,NO
+BoardPosition,int,4,NO
+BoardId,char,16,YES

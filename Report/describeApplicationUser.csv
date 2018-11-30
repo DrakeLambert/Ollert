@@ -1,0 +1,4 @@
+COLUMN_NAME,TYPE_NAME,LENGTH,IS_NULLABLE
+Id,char,16,NO
+Username,varchar,100,NO
+Passwordhash,varchar,100,NO

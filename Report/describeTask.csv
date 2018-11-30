@@ -1,0 +1,6 @@
+COLUMN_NAME,TYPE_NAME,LENGTH,IS_NULLABLE
+Id,char,16,NO
+Title,varchar,100,NO
+Descriptor,varchar,500,NO
+DueDate,datetimeoffset,68,YES
+ListId,char,16,YES

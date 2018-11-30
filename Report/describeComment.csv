@@ -1,0 +1,6 @@
+COLUMN_NAME,TYPE_NAME,LENGTH,IS_NULLABLE
+Id,char,16,NO
+TimeCreated,datetimeoffset,68,NO
+MessageText,varchar,500,NO
+TaskId,char,16,YES
+OwnerId,char,16,YES
